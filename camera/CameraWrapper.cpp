@@ -200,8 +200,8 @@ char * camera_fixup_setparams(struct camera_device * device, const char * settin
     }
 #endif
 #ifdef ENABLE_ZSL
-    params.set(android::CameraParameters::KEY_ZSL, isVideo ? "off" : "on");
-    params.set(android::CameraParameters::KEY_CAMERA_MODE, isVideo ? "0" : "1");
+    params.set(android::CameraParameters::KEY_ZSL, "on");
+    params.set(android::CameraParameters::KEY_CAMERA_MODE, "1");
 #ifdef MAGIC_ZSL_1508
     if (!isVideo) {
         camera_send_command(device, 1508, 0, 0);
