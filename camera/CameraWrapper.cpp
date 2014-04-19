@@ -190,7 +190,14 @@ char * camera_fixup_setparams(struct camera_device * device, const char * settin
 
 #ifdef SAMSUNG_CAMERA_MODE
     /* Samsung camcorder mode */
-    params.set(KEY_SAMSUNG_CAMERA_MODE, isVideo ? "1" : "0");
+    if (!(!strcmp(camMode, "1") && !isVideo)) {
+        if (!strcmp(params.get(android::CameraParameters::KEY_PREVIEW_FRAME_RATE), "15") && !isVideo
+           && id == 1) {
+            // Do nothing. Hangouts actually likes the mode to be -1.
+        } else {
+        params.set(KEY_SAMSUNG_CAMERA_MODE, isVideo ? "1" : "0");
+        }
+    }
 #endif
 #ifdef ENABLE_ZSL
     params.set(android::CameraParameters::KEY_ZSL, isVideo ? "off" : "on");
